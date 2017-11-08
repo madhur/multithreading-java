@@ -17,7 +17,7 @@ class Processor implements Runnable {
         System.out.println("Starting: " + id);
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -30,9 +30,9 @@ public class App {
 
     public static void main(String[] args) {
 
-        ExecutorService executor = Executors.newFixedThreadPool(1);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        for (int i=0; i<5; ++i) {
+        for (int i=0; i<10; ++i) {
             executor.submit(new Processor(i));
         }
 

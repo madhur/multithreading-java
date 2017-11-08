@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 public class App {
 
     public static void main(String[] args) {
+
         ExecutorService executor = Executors.newCachedThreadPool();
 
         // Doesn't return a value
@@ -39,9 +40,9 @@ public class App {
                 Random random = new Random();
                 int duration = random.nextInt(4000);
 
-                if (duration > 2000) {
-                    throw new IOException("Sleeping for too long.");
-                }
+//                if (duration > 2000) {
+//                    throw new IOException("Sleeping for too long.");
+//                }
 
                 System.out.println("Starting...");
 
