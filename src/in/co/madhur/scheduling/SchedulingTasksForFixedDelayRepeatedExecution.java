@@ -1,0 +1,47 @@
+package in.co.madhur.scheduling;
+
+import in.co.madhur.common.ScheduledTaskA;
+import in.co.madhur.common.TimeUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
+public class SchedulingTasksForFixedDelayRepeatedExecution {
+
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
+
+    public static void main(String[] args) throws InterruptedException {
+
+        String currentThreadName = Thread.currentThread().getName();
+
+        System.out.println("[" + currentThreadName + "] Main thread starts here...");
+
+        Timer timer = new Timer("Timer=thread", true);
+        Date currentTime = new Date();
+
+        System.out.println("[" + currentThreadName + "] Current time : " + dateFormatter.format(currentTime));
+
+        Date scheduledTime = TimeUtils.getFutureTime(currentTime, 3000);
+        long intervalMillis = 2000;
+
+        timer.schedule(new ScheduledTaskA(1000), scheduledTime, intervalMillis);
+
+        System.out.println("[" + currentThreadName + "] Task-1 first-run scheduled for " + dateFormatter.format(scheduledTime) + " and then repeatedly at an interval of every " + intervalMillis/1000 + " seconds!");
+
+        long delayMillis = 4000;
+        long intervalMillis2 = 2000;
+
+        timer.schedule(new ScheduledTaskA(1000), scheduledTime, intervalMillis2);
+
+        System.out.println("[" + currentThreadName + "] Task-2 first run scheduled " + delayMillis/1000 + " seconds after " + dateFormatter.format(currentTime) + " and then repeatedly at an interval " + intervalMillis2/1000 + " seconds");
+
+        TimeUnit.MILLISECONDS.sleep(16000);
+
+        System.out.println("[" + currentThreadName + "] CANCELLING THE TIMER NOW ...");
+        timer.cancel();
+
+        System.out.println("[" + currentThreadName + "] Main thread ends here...");
+    }
+}
